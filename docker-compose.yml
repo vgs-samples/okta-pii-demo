@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+    server:
+        build: ./server
+        container_name: server
+        ports:
+            - 5000:5000
+    
+    client:
+        build: ./client
+        container_name: client
+        tty: true
+        ports:
+            - 3000:3000
+
