@@ -4,9 +4,6 @@ from okta.UsersClient import UsersClient
 from okta.models.user.User import User
 from okta.models.user.LoginCredentials import LoginCredentials
 from okta.models.user.Password import Password
-from okta.models.user.RecoveryQuestion import RecoveryQuestion
-from okta.AuthClient import AuthClient
-from okta.framework.OktaError import OktaError
 
 app = Flask(__name__)
 cors = CORS(app)
