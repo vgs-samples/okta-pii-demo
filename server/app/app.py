@@ -48,7 +48,7 @@ def create_user():
             user.profile.ssn = data["ssn"]
             user_response = users_client.create_user(user, True)
             STATE["userInfo"] = {
-                "id": user_response.id,
+                "id": "NOT REAL",
                 "email": data["email"],
                 "ssn": data["ssn"]
             }
