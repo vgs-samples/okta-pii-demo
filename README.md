@@ -15,5 +15,5 @@ This application demonstrates how placing VGS between an application's front end
 * Add your VGS inbound vault URL to client/src/proerties.js 
 * In your terminal, run ```docker-compose up -d --force-recreate```
 * Next, run ```ngrok http 5000```
-* In the VGS dashboard, configure your inbound route to redact the JSON path $.userProfile.ssn on request and reveal it on response. Set the upstream host to your nGrok URL.
+* In the VGS dashboard, configure your inbound route to redact the JSON path $.userProfile.ssn on request and reveal it on response. Set the upstream host to your nGrok URL.  You can use the config.yaml in this project to import a sample route.
 * Open http://0.0.0.0:3000/ in your browser, and try creating a user with and without routing through VGS. 
