@@ -33,15 +33,26 @@ Note: This app is intended to demonstrate VGS's capabilities and is not intended
 
 * Open http://0.0.0.0:3000/ in your browser
 * First, try creating a user without routing the request through VGS.
+
 ![Create Without VGS](docs/create_without_vgs.png)
+
 * As desired, the user profile displays the SSN you entered. 
+
 ![User Profile](docs/user_profile.png)
+
 * If you look up the user you created in the Okta user directory, you'll notice that the SSN you entered appears unmodified. This is an issue because both your server and Okta have received sensitive data without needing it. Let's fix this.
+
 ![Okta Profile Unredacted](docs/okta_profile_unredacted.png)
+
 * Back in your app, click the "Delete User" button
 * Create the user again, this time routing through VGS. 
+
 ![Create With VGS](docs/create_with_vgs.png)
+
 * As before, the user profile displays the SSN you entered. This is because of the reveal filter we added in the VGS configuration.
+
 ![User Profile](docs/user_profile.png)
+
 * However, in the Okta directory, the SSN has been replaced by a VGS token. The redact filter intercepted the real SSN before it made it to the server and replaced it with an alias. The server sent this alias to Okta. Both your server and Okta are now spared the burden of handling sensitive data. 
+
 ![Okta Profile Redacted](docs/okta_profile_redacted.png)
