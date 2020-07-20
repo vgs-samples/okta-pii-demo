@@ -18,7 +18,7 @@ def create_user():
     if request.method == "GET":
         if STATE.get("userInfo") is not None:
             users_client = get_api_client(UsersClient)
-            user = users_client.get_user(STATE["user_info"]["id"])
+            user = users_client.get_user(STATE["userInfo"]["id"])
             return {
                 "id": user.id,
                 "email": user.profile.email,
@@ -31,7 +31,7 @@ def create_user():
         if request.method == "DELETE":
             users_client.delete_user(STATE["userInfo"]["id"])
             users_client.delete_user(STATE["userInfo"]["id"])
-            STATE["user_info"] = None
+            STATE["userInfo"] = None
             return jsonify(success=True)
         else:
             data = request.json

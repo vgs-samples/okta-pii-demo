@@ -28,7 +28,6 @@ class App extends React.Component {
             method: 'GET'
         });
         userInfo = await userInfo.json();
-        console.log(userInfo);
         if (userInfo["email"]) {
             this.setState({userInfo: userInfo});
         }
