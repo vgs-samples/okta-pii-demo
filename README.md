@@ -25,7 +25,8 @@ One to readact the SSN before it reaches the server
 One to reveal the SSN to the front end upon retrieval from the server
 ![Reveal Filter](docs/reveal_filter.png)
 
-For a quick start, you can use the config.yaml in this project to import a sample route.
+For a quick start, you can use the config.yaml in this project to import a sample route. Using [vgs-cli](https://www.verygoodsecurity.com/docs/cli), run
+```vgs --tenant=VAULT_ID route --sync-all < my-route-file.yaml```
 
 ### Try it out
 
