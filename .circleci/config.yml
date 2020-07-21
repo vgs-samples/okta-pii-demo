@@ -5,17 +5,13 @@ orbs:
 
 jobs:
   build-and-test:
-    executor: python/default
-    working_directory: ~/project/server
+    machine: true
+    working_directory: ~/project
     steps:
       - checkout:
           path: ~/project
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
-      - run:
-          command: python3 -m pytest
-          name: Test
+      - run: docker-compose -f docker-compose.test.yaml -p ci build
+      - run: docker-compose -f docker-compose.test.yaml -p ci up --exit-code-from sut
 
 workflows:
   main:
