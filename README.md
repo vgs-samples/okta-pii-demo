@@ -11,49 +11,25 @@ This application demonstrates how placing VGS between an application's front end
 
 # Running the Application
 
-* Add your Okta URL and API token to server/app.py. 
-* Add your VGS inbound vault URL to client/src/proerties.js 
+* Edit ```docker_compose.yaml```, and replace YOUR_VGS_VAULT_ID with your VGS vault ID.
 * In your terminal, run ```docker-compose up -d --force-recreate```
 * Next, run ```ngrok http 5000```
 
 ## VGS Dashboard Configuration
-Set your route's upsteam host to your nGrok URL. Add two filters:
+Set your route's upsteam host to your nGrok URL. Add filters for the reveal and redact. Note that the coordinates specified in the routes consist of four digitis - x coordinate of the bottom left corner, y coordinate of the bottom left corner, width, and height respectively. 
 
-One to readact the SSN before it reaches the server
-![Redact Filter](docs/redact_filter.png)
-
-One to reveal the SSN to the front end upon retrieval from the server
-![Reveal Filter](docs/reveal_filter.png)
+* Add a redact filter to mask the desired part of PDFs sent to the redact route
+* Add a reveal filter to reveal that part in PDFs sent to the reveal route
 
 For a quick start, you can use the config.yaml in this project to import a sample route. Using [vgs-cli](https://www.verygoodsecurity.com/docs/cli), run
-```vgs --tenant=VAULT_ID route --sync-all < my-route-file.yaml```
+```vgs --tenant=VAULT_ID route --sync-all < config.yaml```
 
 ### Try it out
 
-Note: This app is intended to demonstrate VGS's capabilities and is not intended to securely handle live data. Do not input a real Social Security Number or any other piece of sensitive data at any point. 
+Note: This app is intended to demonstrate VGS's capabilities and is not intended to securely handle live data. Do not input any PDFs containing real sensitive data.
 
 * Open http://0.0.0.0:3000/ in your browser
-* First, try creating a user without routing the request through VGS.
+* Upload a PDF of your choice
+* Click "Redact" and observe the result with the redaction
+* Click "Reveal" and observe how the original PDF is displayed again
 
-![Create Without VGS](docs/create_without_vgs.png)
-
-* As desired, the user profile displays the SSN you entered. 
-
-![User Profile](docs/user_profile.png)
-
-* If you look up the user you created in the Okta user directory, you'll notice that the SSN you entered appears unmodified. This is an issue because both your server and Okta have received sensitive data without needing it. Let's fix this.
-
-![Okta Profile Unredacted](docs/okta_profile_unredacted.png)
-
-* Back in your app, click the "Delete User" button
-* Create the user again, this time routing through VGS. 
-
-![Create With VGS](docs/create_with_vgs.png)
-
-* As before, the user profile displays the SSN you entered. This is because of the reveal filter we added in the VGS configuration.
-
-![User Profile](docs/user_profile.png)
-
-* However, in the Okta directory, the SSN has been replaced by a VGS token. The redact filter intercepted the real SSN before it made it to the server and replaced it with an alias. The server sent this alias to Okta. Both your server and Okta are now spared the burden of handling sensitive data. 
-
-![Okta Profile Redacted](docs/okta_profile_redacted.png)
